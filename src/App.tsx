@@ -1,26 +1,71 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {Stage1} from './Stage1';
+import {AppState, AppStateApi} from './types';
+import {Stage2} from './Stage2';
+import {Header} from "./Header";
+
+
+function initialState(): AppState {
+    const appState = localStorage.getItem('state');
+    if (appState != null) {
+        console.log(appState)
+        return JSON.parse(appState);
+    } else {
+        return {currStage: 0, lastStage: 0};
+    }
+}
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [appState, setAppState] = useState(initialState());
+
+    const appStateApi: AppStateApi = {
+        goToNextStage: () => {
+            if (appState.currStage < appState.lastStage) {
+                appStateApi.setAppState({currStage: appState.currStage + 1, lastStage: appState.lastStage})
+            }
+        },
+
+        goToPrevStage: () => {
+            if (appState.currStage > 0) {
+                appStateApi.setAppState({currStage: appState.currStage - 1, lastStage: appState.lastStage})
+            }
+        },
+
+        completeStage: () => {
+            if (appState.currStage == appState.lastStage) {
+                appStateApi.setAppState({currStage: appState.currStage, lastStage: appState.lastStage + 1})
+            }
+        },
+
+        setAppState: (newState: AppState) => {
+            setAppState(newState)
+            localStorage.setItem('state', JSON.stringify(newState));
+        }
+    };
+
+    let stage: JSX.Element;
+    console.log(appState, "s")
+    switch (appState.currStage) {
+        case 0:
+            console.log("0")
+            stage = Stage1(appStateApi);
+            break;
+        case 1:
+            console.log("1")
+            stage = Stage2(appStateApi);
+            break;
+        default:
+            console.log("default")
+            stage = Stage1(appStateApi);
+            break;
+    }
+
+    console.log(appState, "sd")
+
+    return Header(stage, appState, appStateApi);
+
 }
 
 export default App;
