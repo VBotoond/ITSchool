@@ -36,19 +36,21 @@ function check(state: State, setState: SetStateFn, appStateApi: AppStateApi) {
     }
 }
 
+interface Stage2Props {
+    appStateApi: AppStateApi
+}
 
-export function Stage2(appStateApi: AppStateApi) {
+export function Stage2(props: Stage2Props) {
     const [state, setState] = useState(initialState());
-
+    const {appStateApi} = props;
     return (
-        <div className={"Stage2"}>
+        <div className={"center"}>
             <form>
-                stage 4
+
                 {state.x}+{state.y}=
                 <input type="number" id="result" name="result" autoFocus={true}/>
                 <button type="button" onClick={() => check(state, setState, appStateApi)}>Submit</button>
                 <button type="button" onClick={() => setState(initialState())}>
-                    {5 < 3 ? 'Körte' : 'Barack'}
                     Reset
                 </button>
             </form>

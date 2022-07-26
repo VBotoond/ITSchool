@@ -36,18 +36,24 @@ function check(state: State, setState: SetStateFn, appStateApi: AppStateApi) {
     }
 }
 
+interface Stage1Props {
+    appStateApi: AppStateApi
+}
 
-export function Stage1(appStateApi: AppStateApi) {
+export function Stage1(props: Stage1Props) {
     const [state, setState] = useState(initialState());
-
+    const {appStateApi} = props;
     return (
-        <div className={"Stage1"}>
-            <form>
+
+        <div className={"center"}>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+            }
+            }>
                 {state.x}+{state.y}=
                 <input type="number" id="result" name="result" autoFocus={true}/>
-                <button type="button" onClick={() => check(state, setState, appStateApi)}>Submit</button>
+                <button type="submit" onClick={() => check(state, setState, appStateApi)}>Submit</button>
                 <button type="button" onClick={() => setState(initialState())}>
-                    {5 < 3 ? 'Körte' : 'Alma'}
                     Reset
                 </button>
             </form>

@@ -1,7 +1,16 @@
 import React from 'react';
 import {AppStateApi, AppState} from './types';
 
-export function Header(el: JSX.Element, appState: AppState, appStateApi: AppStateApi) {
+interface HeaderProps {
+    el: JSX.Element;
+    appState: AppState;
+    appStateApi: AppStateApi;
+}
+
+export function Header(props: HeaderProps) {
+
+    const {el, appState, appStateApi} = props;
+
     return (
 
         <header>

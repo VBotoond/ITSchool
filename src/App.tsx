@@ -46,25 +46,25 @@ function App() {
     };
 
     let stage: JSX.Element;
-    console.log(appState, "s")
+
     switch (appState.currStage) {
         case 0:
             console.log("0")
-            stage = Stage1(appStateApi);
+            stage = <Stage1 appStateApi={appStateApi}/>;
             break;
         case 1:
             console.log("1")
-            stage = Stage2(appStateApi);
+            stage = <Stage2 appStateApi={appStateApi}/>;
             break;
         default:
             console.log("default")
-            stage = Stage1(appStateApi);
+            stage = <Stage1 appStateApi={appStateApi}/>;
             break;
     }
 
     console.log(appState, "sd")
 
-    return Header(stage, appState, appStateApi);
+    return <Header el={stage} appState={appState} appStateApi={appStateApi}/>;
 
 }
 
