@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {AppStateApi} from './types';
+import {Button} from "./Buttons";
 
 interface State {
     x: number;
@@ -52,10 +53,9 @@ export function Stage1(props: Stage1Props) {
             }>
                 {state.x}+{state.y}=
                 <input type="number" id="result" name="result" autoFocus={true}/>
-                <button type="submit" onClick={() => check(state, setState, appStateApi)}>Submit</button>
-                <button type="button" onClick={() => setState(initialState())}>
-                    Reset
-                </button>
+                <Button onClick={() =>check(state, setState, appStateApi)} label="Submit"/>
+                <Button onClick={() =>setState(initialState())} label="Reset"/>
+
             </form>
             <p>{state.msg}</p>
         </div>

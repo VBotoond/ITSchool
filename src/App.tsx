@@ -62,7 +62,7 @@ function App() {
             break;
     }
 
-    console.log(appState, "sd")
+
 
     return <Header el={stage} appState={appState} appStateApi={appStateApi}/>;
 
